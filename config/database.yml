@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgis
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+development:
+  <<: *default
+  database: realestate_development
+  username: realestate_development
+  password: password
+
+test:
+  <<: *default
+  database: realestate_test
+  username: realestate_test
+  password: password
+
+production:
+  <<: *default
+  username: <%= ENV["DB_USERNAME"] %>
+  password: <%= ENV["DB_PASSWORD"] %>
+  database: "realestate"
