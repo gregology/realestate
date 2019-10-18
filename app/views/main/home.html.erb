@@ -1,0 +1,7 @@
+<h1>Properties</h1>
+
+<% @properties.each do |property| %>
+  <h2><%= property.title %></h2>
+  <img src="<%= property.photo_url %>" width="50%"><br>
+  <%= number_to_currency(property.latest_list_price) %> <a href="http://maps.google.com/maps?q=description+(name)+%40<%= property.lat %>,<%= property.lon %>">map</a> - <a href="<%= property.listing_url %>">listing</a>
+<% end %>
