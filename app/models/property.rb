@@ -28,6 +28,7 @@ class Property < ApplicationRecord
   end
 
   def transform_point_to_3857
+    # this is a really bad solution but I was getting annoyed trying to solve this with Ruby gems
     results = ActiveRecord::Base.connection.execute("""
       SELECT
         ST_Y(ST_Transform(CAST(location AS GEOMETRY), 3857)) AS lat,
