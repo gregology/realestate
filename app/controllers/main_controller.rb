@@ -11,4 +11,8 @@ class MainController < ApplicationController
       .where("updated_at < ?", 36.hours.ago) \
       .order(created_at: :desc)
   end
+
+  def all
+    @properties = Property.order(created_at: :desc)
+  end
 end
