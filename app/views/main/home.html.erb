@@ -1,5 +1,7 @@
 <h1>Prince Edward County Properties</h1>
 
+<p><%= @properties.count %> properties</p>
+
 <% @properties.each do |property| %>
   <h2><%= property.title %></h2>
   <img src="<%= property.photo_url %>" width="30%">
