@@ -82,7 +82,7 @@ task :extract_properties => :environment do
   ]
 
   min = 100000
-  max = 850000
+  max = 1250000
   keyword = 'waterfront'
 
   search_locations.each do |search_location|
