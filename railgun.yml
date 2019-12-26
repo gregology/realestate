@@ -1,0 +1,18 @@
+# https://dev-accel.shopify.io/dev/railgun/Railgun-Config
+name: stealestate
+
+vm:
+  image:      /opt/dev/misc/railgun-images/default
+  ip_address: 192.168.64.97
+  memory:     2G
+  cores:      2
+
+volumes:
+  root: 2G
+
+services:
+  - postgresql
+  - nginx
+
+hostnames:
+  - devstealestate.com: { proxy_to_host_port: 3000 }

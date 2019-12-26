@@ -1,0 +1,29 @@
+name: stealestate
+
+type: rails
+
+up:
+  - homebrew:
+    - openssl
+  - ruby:
+      version: 2.6.3
+  - railgun
+  - bundler
+
+server:
+  port: 3000
+
+commands:
+  console:
+    syntax: ""
+    desc:   'start a rails console'
+    run:    bundle exec rails console
+  test:
+    syntax:
+      argument: file
+      optional: args...
+    desc:   'run a single test file'
+    run:    bundle exec rails test
+
+open:
+  "My Application": http://stealestate.railgun/

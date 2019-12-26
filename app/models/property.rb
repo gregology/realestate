@@ -4,7 +4,7 @@ class Property < ApplicationRecord
   before_save :create_point
   before_save :save_price_history
 
-  validates :latitude, numericality: { greater_than_or_equal_to:  -90, less_than_or_equal_to:  90 }, unless: :location?
+  validates :latitude, numericality: { greater_than_or_equal_to: -90, less_than_or_equal_to: 90 }, unless: :location?
   validates :longitude, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to: 180 }, unless: :location?
 
   def create_point
