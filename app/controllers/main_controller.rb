@@ -1,6 +1,6 @@
 class MainController < ApplicationController
   def home
-    @properties = Property \
+    @properties = ZoloProperty \
       .where("address NOT LIKE '%south church street%'") \
       .where("address NOT LIKE '%natures lane%'") \
       .where("address NOT LIKE '%meadow view lane%'") \
@@ -15,6 +15,6 @@ class MainController < ApplicationController
   end
 
   def all
-    @properties = Property.where("updated_at < ?", 24.hours.ago).order(created_at: :desc)
+    @properties = ZoloProperty.where("updated_at < ?", 24.hours.ago).order(created_at: :desc)
   end
 end

@@ -113,9 +113,9 @@ task :extract_properties => :environment do
       puts property
       address = property['url_street_address'].gsub('-', ' ')
       list_price = property['list_price'].delete(',').to_f
-      existing_property = Property.find_by(address: address)
+      existing_property = ZoloProperty.find_by(address: address)
       if existing_property.nil?
-        Property.create(
+        ZoloProperty.create(
           title: property['url_street_address'],
           latitude: property['lat'],
           longitude: property['lng'],

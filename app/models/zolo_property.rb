@@ -1,4 +1,4 @@
-class Property < ApplicationRecord
+class ZoloProperty < ApplicationRecord
   attr_accessor :longitude, :latitude
 
   before_save :create_point
@@ -33,7 +33,7 @@ class Property < ApplicationRecord
       SELECT
         ST_Y(ST_Transform(CAST(location AS GEOMETRY), 3857)) AS lat,
         ST_X(ST_Transform(CAST(location AS GEOMETRY), 3857)) AS lon
-      FROM properties
+      FROM zolo_properties
       WHERE id = #{self.id}
     """).first
   end
