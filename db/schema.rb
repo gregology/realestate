@@ -10,11 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_26_135351) do
+ActiveRecord::Schema.define(version: 2020_01_19_184409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
+
+  create_table "remax_properties", force: :cascade do |t|
+    t.string "address"
+    t.string "city"
+    t.string "baths"
+    t.string "full_baths"
+    t.string "half_baths"
+    t.string "bed"
+    t.string "detail_url"
+    t.string "mls_num"
+    t.string "postal_code"
+    t.string "primary_business_type"
+    t.float "list_price"
+    t.float "lot_size"
+    t.boolean "is_luxury"
+    t.boolean "is_commercial"
+    t.boolean "is_remax_listing"
+    t.datetime "list_date"
+    t.geography "location", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
+    t.jsonb "images", default: [], null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "zolo_properties", force: :cascade do |t|
     t.string "title"
