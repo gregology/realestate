@@ -12,7 +12,8 @@ class MainController < ApplicationController
         ST_X(ST_Transform(CAST(zp.location AS GEOMETRY), 3857)) + 400 AS east,
         ST_Y(ST_Transform(CAST(zp.location AS GEOMETRY), 3857)) + 400 AS south,
         ST_X(ST_Transform(CAST(zp.location AS GEOMETRY), 3857)) + 400 AS west,
-        zp.price_history
+        zp.price_history,
+        zp.latest_list_price
       FROM
         zolo_properties zp
         JOIN remax_properties rp ON ST_Distance(zp.location, rp.location) < 10

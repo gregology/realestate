@@ -42,7 +42,7 @@ task :update_lots_of_remax_properties => :environment do
   include ApplicationHelper
 
   10.times do
-    remax_properties = RemaxProperty.where(address: nil).limit(rand(5..8))
+    remax_properties = RemaxProperty.where(address: nil).where.not(id: 0).limit(rand(5..8))
     property_ids = remax_properties.map(&:id)
     properties = get_detailed_remax_properties(property_ids)
 
