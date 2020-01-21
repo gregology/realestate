@@ -5,7 +5,7 @@
 <% @properties.each do |property| %>
   <h2><%= property['title'] %></h2>
   <img src="<%= property['photo_url'] %>" width="30%">
-  <img src="<%= property['map_url'] %>" width="30%"><br>
+  <img src="https://maps.thecounty.ca/pecountyext/rest/services/PEC_PublicViewerDynamic/MapServer/export?dpi=96&transparent=true&format=png8&layers=show%3A9%2C11&dynamicLayers=%5B%7B%22id%22%3A9%2C%22name%22%3A%22Watercourse%20(EP%20Zone%20applies%2015%20m%20on%20either%20side)%22%2C%22source%22%3A%7B%22type%22%3A%22mapLayer%22%2C%22mapLayerId%22%3A9%7D%2C%22minScale%22%3A72223.819286%2C%22maxScale%22%3A0%7D%2C%7B%22id%22%3A11%2C%22name%22%3A%22Zoning%20(By-law%20No.%201816-2006)%22%2C%22source%22%3A%7B%22type%22%3A%22mapLayer%22%2C%22mapLayerId%22%3A11%7D%2C%22minScale%22%3A72225%2C%22maxScale%22%3A0%7D%5D&bbox=-<%= property['west'] %>%2C<%= property['south'] %>%2C<%= property['east'] %>%2C<%= property['north'] %>&bboxSR=102100&imageSR=102100&size=888%2C664&f=image" width="30%"><br>
   <%= number_to_currency(property['latest_list_price']) %> <a href="http://maps.google.com/maps?q=description+(name)+%40<%= property['lat'] %>,<%= property['lon'] %>">map</a> - <a href="<%= property['listing_url'] %>">listing</a><br>
   First seen: <%= property['created_at'].to_date %><br>
   Last updated: <%= property['updated_at'].to_date %><br>
