@@ -2,7 +2,7 @@ desc "Extract properties from Remax"
 task :update_remax_properties => :environment do
   include ApplicationHelper
 
-  if rand() > 0.7 && Time.now.hour > 17
+  if rand() > 0.3
     remax_properties = RemaxProperty.where(address: nil).limit(rand(3..8))
     property_ids = remax_properties.map(&:id)
     properties = get_detailed_remax_properties(property_ids)
