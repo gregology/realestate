@@ -11,8 +11,8 @@ task :extract_remax_properties => :environment do
 
       remax_property = RemaxProperty.find_or_create_by(id: property_array[2].to_i)
       remax_property.update(
-        longitude: property_array[0],
-        latitude: property_array[1],
+        latitude: property_array[0],
+        longitude: property_array[1],
         list_price: property_array[3],
         list_date: property_array[4],
       )
