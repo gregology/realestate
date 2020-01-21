@@ -31,5 +31,8 @@ task :update_remax_properties => :environment do
       )
 
     end
+
+    not_updated = RemaxProperty.where(address: nil).where(id: property_ids)
+    not_updated.destroy unless not_updated.empty?
   end
 end

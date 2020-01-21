@@ -27,6 +27,6 @@ task :extract_zolo_properties => :environment do
         existing_property.save
       end
     end
-    sleep rand(7..27)
+    sleep rand(3..7)
   end
 end

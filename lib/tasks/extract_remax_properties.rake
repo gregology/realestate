@@ -18,6 +18,6 @@ task :extract_remax_properties => :environment do
       )
 
     end
-    sleep rand(7..27)
+    sleep rand(3..7)
   end
 end
