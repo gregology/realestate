@@ -2,6 +2,7 @@ class MainController < ApplicationController
   def home
     sql = """
       SELECT
+        zp.id,
         zp.title,
         zp.photo_url,
         zp.created_at,
