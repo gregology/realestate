@@ -8,8 +8,8 @@
   <img src="<%= property.photo_url %>" width="30%">
   <img src="<%= property.map_url %>" width="30%"><br>
   <%= number_to_currency(property.latest_list_price) %> <a href="http://maps.google.com/maps?q=description+(name)+%40<%= property.lat %>,<%= property.lon %>">map</a> - <a href="<%= property.listing_url %>">listing</a><br>
-  First seen: <%= property.created_at.to_date %><br>
-  Last updated: <%= property.updated_at.to_date %><br>
+  First seen: <%= property.price_history.first.first %><br>
+  Last updated: <%= property.price_history.last.first %><br>
   Price drop: $<%= property.price_drop %><br>
   Lot size: <%= prop['acres'] %> acres<br>
 <% end %>
