@@ -3,8 +3,6 @@ name: stealestate
 type: rails
 
 up:
-  - homebrew:
-    - openssl
   - ruby:
       version: 2.6.3
   - railgun
