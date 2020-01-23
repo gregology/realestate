@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_21_141939) do
+ActiveRecord::Schema.define(version: 2020_01_23_224355) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,4 +53,25 @@ ActiveRecord::Schema.define(version: 2020_01_21_141939) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+
+  create_view "properties", sql_definition: <<-SQL
+      SELECT zp.id,
+      zp.title,
+      zp.photo_url,
+      zp.created_at,
+      zp.updated_at,
+      st_y(st_transform((zp.location)::geometry, 4326)) AS lat,
+      st_x(st_transform((zp.location)::geometry, 4326)) AS lon,
+      (st_y(st_transform((zp.location)::geometry, 3857)) + (400)::double precision) AS bbox_3857_north,
+      (st_x(st_transform((zp.location)::geometry, 3857)) + (400)::double precision) AS bbox_3857_east,
+      (st_y(st_transform((zp.location)::geometry, 3857)) - (400)::double precision) AS bbox_3857_south,
+      (st_x(st_transform((zp.location)::geometry, 3857)) - (400)::double precision) AS bbox_3857_west,
+      zp.location,
+      zp.price_history,
+      zp.latest_list_price,
+      zp.listing_url AS zolo_listing_url,
+      round(((rp.lot_size / (43560.0)::double precision))::numeric, 2) AS acres
+     FROM (zolo_properties zp
+       JOIN remax_properties rp ON ((st_distance(zp.location, rp.location) < (25)::double precision)));
+  SQL
 end
