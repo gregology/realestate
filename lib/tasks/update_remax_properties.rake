@@ -4,7 +4,7 @@ task :update_remax_properties => :environment do
 
   if rand() > 0.3
     remax_properties = RemaxProperty.where(address: nil).where.not(id: 0).limit(rand(3..8))
-    unless remax_properties.count = 0
+    unless remax_properties.empty?
       property_ids = remax_properties.map(&:id)
       properties = get_detailed_remax_properties(property_ids)
 
