@@ -2,10 +2,12 @@ ENV['USER_AGENT'] = ''
 ENV['REMAX_COOKIE'] = ''
 ENV['REMAX_DETAILED_COOKIE'] = ''
 ENV['ZOLO_COOKIE'] = ''
-
 ENV['PURPLE_BRICKS_COOKIE'] = ''
+ENV['PURPLE_BRICKS_DETAILED_COOKIE'] = ''
 
 # heroku config:add USER_AGENT=''
 # heroku config:add REMAX_COOKIE=''
+# heroku config:add REMAX_DETAILED_COOKIE=''
 # heroku config:add ZOLO_COOKIE=''
 # heroku config:add REMAX_DETAILED_COOKIE=''
+# heroku config:add PURPLE_BRICKS_DETAILED_COOKIE=''
