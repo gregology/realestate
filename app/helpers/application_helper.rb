@@ -78,14 +78,14 @@ module ApplicationHelper
       'cache-control': 'no-cache',
       'accept': 'application/json, text/plain, */*',
       'origin': 'https://www.remax.ca',
-      'user-agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Mobile Safari/537.36',
+      'user-agent': ENV['USER_AGENT'],
       'dnt': '1',
       'sec-fetch-site': 'same-site',
       'sec-fetch-mode': 'cors',
       'referer': 'https://www.remax.ca/find-real-estate',
       'accept-encoding': 'gzip, deflate, br',
       'accept-language': 'en-US,en;q=0.9',
-      'cookie': '_gcl_au=1.1.1724605652.1577324922; _ga=GA1.2.804003917.1577324922; ry_ry-r3m4xu8m_realytics=eyJpZCI6InJ5XzNGQjEzQjU0LUVDQzMtNDk3Ni05RDBELTlDMDVBODg4QjlBNSIsImNpZCI6bnVsbCwiZXhwIjoxNjA4ODYwOTI0NDUwLCJjcyI6bnVsbH0%3D; _gid=GA1.2.2011494116.1579461606; ry_ry-r3m4xu8m_so_realytics=eyJpZCI6InJ5XzNGQjEzQjU0LUVDQzMtNDk3Ni05RDBELTlDMDVBODg4QjlBNSIsImNpZCI6bnVsbCwib3JpZ2luIjp0cnVlLCJyZWYiOm51bGwsImNvbnQiOm51bGwsIm5zIjpmYWxzZX0%3D'
+      'cookie': ENV['REMAX_COOKIE']
     }
 
     url = "https://api.remax.ca/api/v1/listings/active?zoom=13&north=#{north}&east=#{east}&south=#{south}&west=#{west}&features.excludedListingTypeIds=101&features.excludedListingTypeIds=107&features.excludedListingTypeIds=108&features.excludedListingTypeIds=112&isPhysicalLocationSearch=true&includeSortFields=true"
@@ -102,13 +102,13 @@ module ApplicationHelper
       'cache-control': 'no-cache',
       'accept': 'application/json, text/plain, */*',
       'dnt': '1',
-      'user-agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Mobile Safari/537.36',
+      'user-agent': ENV['USER_AGENT'],
       'sec-fetch-site': 'same-origin',
       'sec-fetch-mode': 'cors',
       'referer': 'https://www.remax.ca/find-real-estate',
       'accept-encoding': 'gzip, deflate, br',
       'accept-language': 'en-US,en;q=0.9',
-      'cookie': '_gcl_au=1.1.1724605652.1577324922; _ga=GA1.2.804003917.1577324922; _gid=GA1.2.343319426.1577324922; ry_ry-r3m4xu8m_realytics=eyJpZCI6InJ5XzNGQjEzQjU0LUVDQzMtNDk3Ni05RDBELTlDMDVBODg4QjlBNSIsImNpZCI6bnVsbCwiZXhwIjoxNjA4ODYwOTI0NDUwLCJjcyI6bnVsbH0%3D; ry_ry-r3m4xu8m_so_realytics=eyJpZCI6InJ5XzNGQjEzQjU0LUVDQzMtNDk3Ni05RDBELTlDMDVBODg4QjlBNSIsImNpZCI6bnVsbCwib3JpZ2luIjp0cnVlLCJyZWYiOm51bGwsImNvbnQiOm51bGwsIm5zIjpmYWxzZX0%3D; _gu=8feadcb6-2b6d-4130-b9c3-bba571b95498; _gs=2.s(src%3Dhttps%3A%2F%2Fwww.google.com%2F)c%5BDesktop%2CChrome%2C232%3A791%3A76154%3A%2CMac%20OS%2C64.229.173.73%5D; hss=1; _gw=2.433618(sc~2%2Cs~q33jqj)u%5B%2C%2C%2C%2C%5Dv%5B~fngj1%2C~1%2C~0%5Da(); __uzma=7026bc7e-ecb8-d477-7524-2b19aa0668b3; __uzmb=1577324971; null=false; ll-visitor-id=93a23fdc-5a4a-4eae-8f9b-91de09af70d9; __uzmc=645672823023; __uzmd=1577325031; remaxca-user-location=%7B%22zoomLevel%22%3A14%2C%22mapOptions%22%3A%7B%22zoom%22%3A15%2C%22zoomControl%22%3Afalse%2C%22streetViewControl%22%3Afalse%2C%22fullscreenControl%22%3Afalse%2C%22mapTypeControl%22%3Afalse%7D%2C%22centerLatLng%22%3A%7B%22lat%22%3A43.95362375808543%2C%22lng%22%3A-77.36276951240023%7D%2C%22north%22%3A43.97660507001507%2C%22south%22%3A43.93063355560519%2C%22west%22%3A-77.39448395179232%2C%22east%22%3A-77.33105507300814%2C%22physicalLocation%22%3A%7B%22lat%22%3A43.95362375808543%2C%22lng%22%3A-77.36276951240023%7D%7D'
+      'cookie': ENV['REMAX_DETAILED_COOKIE']
     }
 
     url = "https://www.remax.ca/api/v1/listings/previews/#{property_ids.join(',')}?includeOffice=false"
@@ -128,12 +128,12 @@ module ApplicationHelper
       'origin': 'https://www.zolo.ca',
       'accept-encoding': 'json',
       'accept-language': 'en-US,en;q=0.9',
-      'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36',
+      'user-agent': ENV['USER_AGENT'],
       'content-type': 'application/x-www-form-urlencoded',
       'accept': '*/*',
       'referer': "https://www.zolo.ca/map-search?sarea=&attribute_terms=#{keyword}&min_price=#{min}&max_price=#{max}&filter=1",
       'authority': 'www.zolo.ca',
-      'cookie': '__cfduid=d09b18017ecb706d088c17f67014354f61571005271; PHPSESSID=c1f97976017b5bc65981258f1fe32d3c; BID=c2cd43a9-ee07-11e9-830b-bc764e102e1e; BSID=c2cd5adc-ee07-11e9-830b-bc764e102e1e; HREFR=none; SOT=2; _ga=GA1.2.2019973844.1571005272; _gid=GA1.2.898666776.1571005272; id-=',
+      'cookie': ENV['ZOLO_COOKIE'],
       'sec-fetch-site': 'same-origin',
     }
 
