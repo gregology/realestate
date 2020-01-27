@@ -142,4 +142,55 @@ module ApplicationHelper
     response = HTTParty.post('https://www.zolo.ca/gallery_map_json.php', body: body, headers: headers, timeout: 180)
     JSON.parse response.body
   end
+
+  def get_purple_bricks_properties(north, east, south, west)
+    headers = {
+      'authority': 'purplebricks.ca',
+      'pragma': 'no-cache',
+      'cache-control': 'no-cache',
+      # 'accept': '*/*',
+      'x-requested-with': 'XMLHttpRequest',
+      'user-agent': ENV['USER_AGENT'],
+      'sec-fetch-site': 'same-origin',
+      # 'sec-fetch-mode': 'cors',
+      'referer': "https://purplebricks.ca/on/search/map?position=#{((north + south) / 2).round(14)},#{((east + west) / 2).round(14)}&zoom=15",
+      # 'accept-encoding': 'gzip, deflate, br',
+      'accept-language': 'en-US,en;q=0.9',
+      'cookie': ENV['PURPLE_BRICKS_COOKIE']
+    }
+
+    url = "https://purplebricks.ca/on/api-proxy/map-search?province=4&page%5Bsize%5D=11&include=builders&min_latitude=#{south.round(14)}&min_longitude=#{west.round(14)}&max_latitude=#{north.round(14)}&max_longitude=#{east.round(14)}&search_scope=in"
+
+    response = HTTParty.get(url, headers: headers, timeout: 180)
+    results = JSON.parse response.body
+    results['data']
+  end
+
+  def update_purple_bricks_property(purple_bricks_property)
+    headers = {
+      'authority': 'purplebricks.ca',
+      # 'accept': '*/*',
+      'x-requested-with': 'XMLHttpRequest',
+      'user-agent': ENV['USER_AGENT'], 
+      'sec-fetch-site': 'same-origin',
+      # 'sec-fetch-mode': 'cors',
+      'referer': "https://purplebricks.ca/on/search/map?position=#{purple_bricks_property.lat},#{purple_bricks_property.lon}&zoom=15",
+      # 'accept-encoding': 'gzip, deflate, br',
+      'accept-language': 'en-US,en;q=0.9',
+      'cookie': ENV['PURPLE_BRICKS_DETAILED_COOKIE']
+    }
+
+    url = "https://purplebricks.ca/on/api-proxy/listing-light/#{purple_bricks_property.purple_bricks_id}"
+    response = HTTParty.get(url, headers: headers, timeout: 180)
+    results = (JSON.parse response.body).first
+
+    purple_bricks_property.update(
+      address:      results['address']['street'],
+      city:         results['address']['city'],
+      list_price:   results['price']['raw'],
+      postal_code:  results['address']['postal_code'],
+      photo_url:    "https://pic.purplebricks.ca/#{results['photo_primary']['uri_1024']}",
+      type:         results['type']
+    )
+  end
 end
