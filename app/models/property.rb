@@ -10,6 +10,6 @@ class Property < ApplicationRecord
   end
 
   def price_drop
-    self.price_history.first.second - self.latest_list_price
+    (self.price_history.first.second || 0) - (self.list_price || 0)
   end
 end

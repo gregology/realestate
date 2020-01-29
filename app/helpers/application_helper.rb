@@ -185,12 +185,22 @@ module ApplicationHelper
     results = (JSON.parse response.body).first
 
     purple_bricks_property.update(
-      address:      results['address']['street'],
-      city:         results['address']['city'],
+      address:      results.dig(:address, :street) || 'unknown',
+      city:         results.dig(:address, :city),
       list_price:   results['price']['raw'],
-      postal_code:  results['address']['postal_code'],
+      postal_code:  results.dig(:address, :postal_code),
       photo_url:    "https://pic.purplebricks.ca/#{results['photo_primary']['uri_1024']}",
       type:         results['type']
     )
+  end
+
+  def kml_points_to_postgres_query(kml_points)
+    """
+    example points from kml file
+    '-77.15278689223894,43.81692450051234,89.98661798035366 -76.76414973513963,43.9311656223183,91.63299022702016 -76.84638640240468,44.12706534128443,94.04178605951739 -77.15278689223894,43.81692450051234,89.98661798035366' 
+    """
+    points = kml_points.split(' ').map { |l| l.split(',')[0..1]}
+    points.map { |l| l.join(' ')}.join(',')
+    "ST_MakePolygon( ST_GeomFromText('LINESTRING(#{points.map { |l| l.join(' ')}.join(',')})'))"
   end
 end
