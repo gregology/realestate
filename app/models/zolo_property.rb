@@ -12,7 +12,7 @@ class ZoloProperty < ApplicationRecord
   end
 
   def save_price_history
-    self.price_history[Date.today] = self.latest_list_price
+    self.price_history[Date.today] = self.list_price
   end
 
   def lat

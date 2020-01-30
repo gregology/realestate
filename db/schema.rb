@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_30_001150) do
+ActiveRecord::Schema.define(version: 2020_01_30_003104) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2020_01_30_001150) do
     t.string "address"
     t.string "city"
     t.string "postal_code"
-    t.string "type"
+    t.string "land_type"
     t.string "photo_url"
     t.string "listing_url"
     t.float "list_price"
@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 2020_01_30_001150) do
 
   create_table "zolo_properties", force: :cascade do |t|
     t.string "title"
-    t.float "latest_list_price"
+    t.float "list_price"
     t.jsonb "price_history", default: {}, null: false
     t.string "city"
     t.string "address"
@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(version: 2020_01_30_001150) do
               zp.updated_at,
               zp.location,
               zp.price_history,
-              zp.latest_list_price AS list_price,
+              zp.list_price,
               zp.listing_url,
               round(((rp.lot_size / (43560.0)::double precision))::numeric, 2) AS acres
              FROM ((zolo_properties zp

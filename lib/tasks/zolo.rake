@@ -10,23 +10,20 @@ namespace :zolo do
         puts property
         address = property['url_street_address'].gsub('-', ' ')
         list_price = property['list_price'].delete(',').to_f
-        existing_property = ZoloProperty.find_by(address: address)
-        if existing_property.nil?
-          ZoloProperty.create(
-            title: property['url_street_address'],
-            latitude: property['lat'],
-            longitude: property['lng'],
-            latest_list_price: list_price,
-            city: property['city'],
-            address: address,
-            listing_url: "https://www.zolo.ca/#{property['url_city']}-real-estate/#{property['url_street_address']}",
-            photo_url: property['photo'],
-            list_date: property['list_date']
-          )
-        else
-          existing_property.update_attribute('latest_list_price', list_price)
-          existing_property.save
-        end
+
+        zolo_property = ZoloProperty.find_or_create_by(address: address)
+
+        zolo_property.update(
+          title: property['url_street_address'],
+          latitude: property['lat'],
+          longitude: property['lng'],
+          list_price: list_price,
+          city: property['city'],
+          address: address,
+          listing_url: "https://www.zolo.ca/#{property['url_city']}-real-estate/#{property['url_street_address']}",
+          photo_url: property['photo'],
+          list_date: property['list_date']
+        )
       end
       sleep rand(3..7)
     end
