@@ -186,10 +186,10 @@ module ApplicationHelper
       results = (JSON.parse response.body).first
 
       purple_bricks_property.update(
-        address:      results.dig(:address, :street) || 'unknown',
-        city:         results.dig(:address, :city),
+        address:      results['address']['street'] || 'unknown',
+        city:         results['address']['city'],
         list_price:   results['price']['raw'],
-        postal_code:  results.dig(:address, :postal_code),
+        postal_code:  results['address']['postal_code'],
         photo_url:    "https://pic.purplebricks.ca/#{results['photo_primary']['uri_1024']}",
         land_type:    results['type']
       )
