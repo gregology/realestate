@@ -190,7 +190,7 @@ module ApplicationHelper
       list_price:   results['price']['raw'],
       postal_code:  results.dig(:address, :postal_code),
       photo_url:    "https://pic.purplebricks.ca/#{results['photo_primary']['uri_1024']}",
-      type:         results['type']
+      land_type:    results['type']
     )
   end
 
