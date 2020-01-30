@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_30_003104) do
+ActiveRecord::Schema.define(version: 2020_01_30_222853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(version: 2020_01_30_003104) do
              FROM ((public.purple_bricks_properties pbp
                LEFT JOIN zolo_properties zp ON ((st_distance(zp.location, pbp.location) < (100)::double precision)))
                JOIN regions r ON ((st_intersects(pbp.location, r.area) AND ((r.title)::text = 'prince_edward_county_coast'::text))))
+            WHERE (((pbp.city)::text <> 'Cherry Valley'::text) AND ((pbp.land_type)::text <> ALL ((ARRAY['Multiplex property'::character varying, 'Condominium'::character varying])::text[])))
           ), properties AS (
            SELECT lms_properties.id,
               lms_properties.title,
