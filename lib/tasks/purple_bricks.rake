@@ -6,10 +6,9 @@ namespace :purple_bricks do
 
     search_locations.each do |search_location|
       properties = get_purple_bricks_properties(search_location[:north], search_location[:east], search_location[:south], search_location[:west])
+      puts "Collected #{properties.count} properties"
       
       properties.each do |property|
-        puts property
-
         purple_bricks_property = PurpleBricksProperty.find_or_create_by(purple_bricks_id: property['id'])
         purple_bricks_property.update(
           latitude: property['latitude'],

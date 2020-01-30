@@ -5,9 +5,9 @@ namespace :remax do
 
     search_locations.each do |search_location|
       properties = get_remax_properties(search_location[:north], search_location[:east], search_location[:south], search_location[:west])
+      puts "Collected #{properties.count} properties"
       
       properties.each do |property|
-        puts property
         property_array = property.split(';')
 
         remax_property = RemaxProperty.find_or_create_by(id: property_array[2].to_i)

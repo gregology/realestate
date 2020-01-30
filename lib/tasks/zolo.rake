@@ -5,9 +5,9 @@ namespace :zolo do
 
     search_locations.each do |search_location|
       properties = get_zolo_properties(search_location[:north], search_location[:east], search_location[:south], search_location[:west])
+      puts "Collected #{properties.count} properties"
       
       properties.each do |property|
-        puts property
         address = property['url_street_address'].gsub('-', ' ')
         list_price = property['list_price'].delete(',').to_f
 
