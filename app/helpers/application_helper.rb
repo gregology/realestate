@@ -120,8 +120,7 @@ module ApplicationHelper
 
   def get_zolo_properties(north, east, south, west)
     min = 100000
-    max = 2000000
-    keyword = 'waterfront'
+    max = 4000000
 
     headers = {
       'sec-fetch-mode': 'cors',
@@ -131,13 +130,13 @@ module ApplicationHelper
       'user-agent': ENV['USER_AGENT'],
       'content-type': 'application/x-www-form-urlencoded',
       'accept': '*/*',
-      'referer': "https://www.zolo.ca/map-search?sarea=&attribute_terms=#{keyword}&min_price=#{min}&max_price=#{max}&filter=1",
+      'referer': "https://www.zolo.ca/map-search?sarea=&min_price=#{min}&max_price=#{max}&filter=1",
       'authority': 'www.zolo.ca',
       'cookie': ENV['ZOLO_COOKIE'],
       'sec-fetch-site': 'same-origin',
     }
 
-    body = "vw=1680&viewport=((#{south}, #{west}), (#{north},#{east}))&ne=(#{north},#{east})&sw=(#{south},#{west})&mnp=#{min}&mxp=#{max}&b=0&baths=0&mnsqft=0&ptc=0&pth=0&ptt=0&doz=0&hp=0&at=#{keyword}&s_r=1&openhouse_search=0&tpid=0&sarea=,%20on,%20canada"
+    body = "vw=1680&viewport=((#{south}, #{west}), (#{north},#{east}))&ne=(#{north},#{east})&sw=(#{south},#{west})&mnp=#{min}&mxp=#{max}&b=0&baths=0&mnsqft=0&ptc=0&pth=0&ptt=0&doz=0&hp=0&s_r=1&openhouse_search=0&tpid=0&sarea=,%20on,%20canada"
 
     response = HTTParty.post('https://www.zolo.ca/gallery_map_json.php', body: body, headers: headers, timeout: 180)
     JSON.parse response.body
