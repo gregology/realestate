@@ -36,4 +36,16 @@ namespace :purple_bricks do
       sleep rand(3..7)
     end
   end
+
+  desc "Update lots of properties from Purple Bricks"
+  task :update_lots => :environment do
+    include ApplicationHelper
+
+    purple_bricks_properties = PurpleBricksProperty.where(address: nil, is_sold: false).limit(rand(73..99))
+
+    purple_bricks_properties.each do |property|
+      update_purple_bricks_property(property)
+      sleep rand(3..7)
+    end
+  end
 end
