@@ -12,7 +12,7 @@ class PurpleBricksProperty < ApplicationRecord
   end
 
   def save_price_history
-    self.price_history[Date.today] = self.list_price unless self.list_price.empty?
+    self.price_history[Date.today] = self.list_price unless self.list_price.nil?
   end
 
   def lat
