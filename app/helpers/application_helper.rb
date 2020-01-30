@@ -183,6 +183,7 @@ module ApplicationHelper
     url = "https://purplebricks.ca/on/api-proxy/listing-light/#{purple_bricks_property.purple_bricks_id}"
     response = HTTParty.get(url, headers: headers, timeout: 180)
     results = (JSON.parse response.body).first
+    puts results
 
     purple_bricks_property.update(
       address:      results.dig(:address, :street) || 'unknown',
