@@ -29,7 +29,7 @@ namespace :purple_bricks do
   task :update => :environment do
     include ApplicationHelper
 
-    purple_bricks_properties = PurpleBricksProperty.where(address: nil).where.(is_sold: false).limit(rand(17..23))
+    purple_bricks_properties = PurpleBricksProperty.where(address: nil, is_sold: false).limit(rand(17..23))
 
     purple_bricks_properties.each do |property|
       update_purple_bricks_property(property)
