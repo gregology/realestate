@@ -182,17 +182,20 @@ module ApplicationHelper
 
     url = "https://purplebricks.ca/on/api-proxy/listing-light/#{purple_bricks_property.purple_bricks_id}"
     response = HTTParty.get(url, headers: headers, timeout: 180)
-    results = (JSON.parse response.body).first
-    puts results
+    if response.code = 200
+      results = JSON.parse response.body
 
-    purple_bricks_property.update(
-      address:      results.dig(:address, :street) || 'unknown',
-      city:         results.dig(:address, :city),
-      list_price:   results['price']['raw'],
-      postal_code:  results.dig(:address, :postal_code),
-      photo_url:    "https://pic.purplebricks.ca/#{results['photo_primary']['uri_1024']}",
-      land_type:    results['type']
-    )
+      purple_bricks_property.update(
+        address:      results.dig(:address, :street) || 'unknown',
+        city:         results.dig(:address, :city),
+        list_price:   results['price']['raw'],
+        postal_code:  results.dig(:address, :postal_code),
+        photo_url:    "https://pic.purplebricks.ca/#{results['photo_primary']['uri_1024']}",
+        land_type:    results['type']
+      )
+    else
+      purple_bricks_property.update(is_sold: true)
+    end
   end
 
   def kml_points_to_postgres_query(kml_points)
