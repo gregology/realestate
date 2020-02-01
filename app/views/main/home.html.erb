@@ -1,5 +1,12 @@
 <h1>Prince Edward County Properties</h1>
 
+<p>
+  <b>Latest data from</b><br>
+  Zolo: <%= @latest_zolo %><br>
+  Remax: <%= @latest_remax %><br>
+  Purple Bricks: <%= @latest_purple_bricks %><br>
+</p>
+
 <p><%= @properties.count %> properties</p>
 
 <% @properties.each do | property | %>
