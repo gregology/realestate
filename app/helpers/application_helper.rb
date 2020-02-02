@@ -228,7 +228,8 @@ module ApplicationHelper
   end
 
   def update_prelist_property(prelist_property)
-    response = HTTParty.get("https://www.prelist.org/properties/#{prelist_property.id}", headers: {'user-agent': ENV['USER_AGENT']}, timeout: 180)
+    url = "https://www.prelist.org/properties/#{prelist_property.id}"
+    response = HTTParty.get(url, headers: {'user-agent': ENV['USER_AGENT']}, timeout: 180)
     results = response.body
 
     document = Nokogiri::HTML(results)
@@ -237,6 +238,8 @@ module ApplicationHelper
 
     property_details['list_price'] = document.xpath("//*[@class=\"price\"]").text.tr('^0-9', '')
     details = document.at_css('[id="details"]')
+
+    property_details['photo_url'] = document.xpath("//*[@class=\"img-box\"]").first['style'][/\((.*?)\)/m, 1]
 
     details.children.each_with_index do | element, idx |
       property_details['address'] = details.children[idx + 1].text.strip if element.text.include?('Address')
@@ -248,6 +251,7 @@ module ApplicationHelper
       address:    property_details['address'],
       beds:       property_details['bedrooms'],
       baths:      property_details['bathrooms'],
+      photo_url:  property_details['photo_url'],
       list_price: property_details['list_price'],
       lot_size:   property_details['lot_size']
     )
