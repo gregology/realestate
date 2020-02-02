@@ -25,7 +25,7 @@ namespace :prelist do
   task :update => :environment do
     include ApplicationHelper
 
-    prelist_properties = PrelistProperty.where(address: nil).limit(rand(3..5))
+    prelist_properties = PrelistProperty.order(updated_at: :asc).limit(rand(5..9))
 
     prelist_properties.each do |property|
       update_prelist_property(property)
