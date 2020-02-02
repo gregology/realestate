@@ -19,3 +19,5 @@ CREATE USER realestate_test WITH PASSWORD 'password';
 ALTER USER realestate_test WITH SUPERUSER;
 GRANT ALL PRIVILEGES ON DATABASE "realestate_test" to realestate_test;
 ```
+
+`brails generate scenic:view properties`

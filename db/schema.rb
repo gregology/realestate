@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_02_003624) do
+ActiveRecord::Schema.define(version: 2020_02_02_020627) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,6 +124,20 @@ ActiveRecord::Schema.define(version: 2020_02_02_003624) do
                LEFT JOIN zolo_properties zp ON ((st_distance(zp.location, pbp.location) < (100)::double precision)))
                JOIN regions r ON ((st_intersects(pbp.location, r.area) AND ((r.title)::text = 'prince_edward_county_coast'::text))))
             WHERE (((pbp.city)::text <> 'Cherry Valley'::text) AND ((pbp.land_type)::text <> ALL ((ARRAY['Multiplex property'::character varying, 'Condominium'::character varying])::text[])))
+          ), prelist_properties AS (
+           SELECT p.id,
+              p.address AS title,
+              p.photo_url,
+              p.created_at,
+              p.updated_at,
+              p.location,
+              p.price_history,
+              p.list_price,
+              concat('https://www.prelist.org/properties/', p.id) AS listing_url,
+              '-1'::integer AS acres
+             FROM ((public.prelist_properties p
+               LEFT JOIN zolo_properties zp ON ((st_distance(zp.location, p.location) < (100)::double precision)))
+               JOIN regions r ON ((st_intersects(p.location, r.area) AND ((r.title)::text = 'prince_edward_county_coast'::text))))
           ), properties AS (
            SELECT lms_properties.id,
               lms_properties.title,
@@ -148,6 +162,18 @@ ActiveRecord::Schema.define(version: 2020_02_02_003624) do
               purple_bricks_properties.listing_url,
               purple_bricks_properties.acres
              FROM purple_bricks_properties
+          UNION
+           SELECT prelist_properties.id,
+              prelist_properties.title,
+              prelist_properties.photo_url,
+              prelist_properties.created_at,
+              prelist_properties.updated_at,
+              prelist_properties.location,
+              prelist_properties.price_history,
+              prelist_properties.list_price,
+              prelist_properties.listing_url,
+              prelist_properties.acres
+             FROM prelist_properties
           )
    SELECT properties.id,
       properties.title,
