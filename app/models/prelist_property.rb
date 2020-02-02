@@ -22,4 +22,8 @@ class PrelistProperty < ApplicationRecord
   def lon
     self.location.longitude if self.location
   end
+
+  def listing_url
+    "https://www.prelist.org/properties/#{self.id}"
+  end
 end

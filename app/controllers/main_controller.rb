@@ -8,6 +8,7 @@ class MainController < ApplicationController
     @latest_zolo          = ZoloProperty.maximum('updated_at').to_date
     @latest_remax         = RemaxProperty.maximum('updated_at').to_date
     @latest_purple_bricks = PurpleBricksProperty.maximum('updated_at').to_date
+    @latest_prelist       = PrelistProperty.maximum('updated_at').to_date
   end
 
   def all
