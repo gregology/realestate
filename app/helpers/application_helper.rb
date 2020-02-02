@@ -141,11 +141,11 @@ module ApplicationHelper
       'authority': 'purplebricks.ca',
       'pragma': 'no-cache',
       'cache-control': 'no-cache',
-      # 'accept': '*/*',
+      'accept': '*/*',
       'x-requested-with': 'XMLHttpRequest',
       'user-agent': ENV['USER_AGENT'],
       'sec-fetch-site': 'same-origin',
-      # 'sec-fetch-mode': 'cors',
+      'sec-fetch-mode': 'cors',
       'referer': "https://purplebricks.ca/on/search/map?position=#{((north + south) / 2).round(14)},#{((east + west) / 2).round(14)}&zoom=15",
       # 'accept-encoding': 'gzip, deflate, br',
       'accept-language': 'en-US,en;q=0.9',
@@ -162,11 +162,11 @@ module ApplicationHelper
   def update_purple_bricks_property(purple_bricks_property)
     headers = {
       'authority': 'purplebricks.ca',
-      # 'accept': '*/*',
+      'accept': '*/*',
       'x-requested-with': 'XMLHttpRequest',
       'user-agent': ENV['USER_AGENT'], 
       'sec-fetch-site': 'same-origin',
-      # 'sec-fetch-mode': 'cors',
+      'sec-fetch-mode': 'cors',
       'referer': "https://purplebricks.ca/on/search/map?position=#{purple_bricks_property.lat},#{purple_bricks_property.lon}&zoom=15",
       # 'accept-encoding': 'gzip, deflate, br',
       'accept-language': 'en-US,en;q=0.9',
@@ -200,5 +200,56 @@ module ApplicationHelper
     points = kml_points.split(' ').map { |l| l.split(',')[0..1]}
     points.map { |l| l.join(' ')}.join(',')
     "ST_MakePolygon( ST_GeomFromText('LINESTRING(#{points.map { |l| l.join(' ')}.join(',')})'))"
+  end
+
+  def get_prelist_properties(north, east, south, west)
+    headers = {
+      'authority': 'www.prelist.org',
+      'pragma': 'no-cache',
+      'cache-control': 'no-cache',
+      'accept': 'application/json, text/javascript, */*; q=0.01',
+      'dnt': '1',
+      'x-csrf-token': '2oK2lKeW3KUY/ZbiNcBpALVPn/IxipdDcdEeNSSoNEdoBe/EWaY8Whu7ag4v41yxjUqSHJ15wwIZxNhDlV0Esg==',
+      'x-requested-with': 'XMLHttpRequest',
+      'user-agent': ENV['USER_AGENT'],
+      'sec-fetch-site': 'same-origin',
+      'sec-fetch-mode': 'cors',
+      'referer': "https://www.prelist.org/properties/search?utf8=%E2%9C%93&location=&open_save_search=&sw_lat=#{south.round(14)}&sw_long=#{west.round(14)}&ne_lat=#{north.round(14)}&ne_long=#{east.round(14)}",
+      # 'accept-encoding': 'gzip, deflate, br',
+      'accept-language': 'en-US,en;q=0.9',
+      'cookie': ENV['PRELIST_COOKIE']
+    }
+
+    url = "https://www.prelist.org/properties/search-results?locale=en&sw_lat=#{south.round(14)}&sw_long=#{west.round(14)}&ne_lat=#{north.round(14)}&ne_long=#{east.round(14)}&min_price=&max_price=&property_type=&beds=&for_sale_by=&rental=&keywords=&open_save_search=true&open_saved_searches=false&email_alerts=true"
+
+    response = HTTParty.get(url, headers: headers, timeout: 180)
+    results = JSON.parse response.body
+    results['locations']
+  end
+
+  def update_prelist_property(prelist_property)
+    response = HTTParty.get("https://www.prelist.org/properties/#{prelist_property.id}", headers: {'user-agent': ENV['USER_AGENT']}, timeout: 180)
+    results = response.body
+
+    document = Nokogiri::HTML(results)
+
+    property_details = {}
+
+    property_details['list_price'] = document.xpath("//*[@class=\"price\"]").text.tr('^0-9', '')
+    details = document.at_css('[id="details"]')
+
+    details.children.each_with_index do | element, idx |
+      property_details['address'] = details.children[idx + 1].text.strip if element.text.include?('Address')
+      property_details['bedrooms'] = details.children[idx + 1].text.strip if element.text.include?('Bedrooms')
+      property_details['bathrooms'] = details.children[idx + 1].text.strip if element.text.include?('Bathrooms')
+      property_details['lot_size'] = details.children[idx + 1].text.tr('^0-9', '') if element.text.include?('Lot area')
+    end
+    prelist_property.update(
+      address:    property_details['address'],
+      beds:       property_details['bedrooms'],
+      baths:      property_details['bathrooms'],
+      list_price: property_details['list_price'],
+      lot_size:   property_details['lot_size']
+    )
   end
 end

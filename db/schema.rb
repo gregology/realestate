@@ -10,11 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_30_222853) do
+ActiveRecord::Schema.define(version: 2020_02_02_003624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
+
+  create_table "prelist_properties", force: :cascade do |t|
+    t.string "address"
+    t.string "beds"
+    t.string "baths"
+    t.string "photo_url"
+    t.string "listing_url"
+    t.float "list_price"
+    t.float "lot_size"
+    t.jsonb "price_history", default: {}, null: false
+    t.geography "location", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "purple_bricks_properties", force: :cascade do |t|
     t.string "purple_bricks_id"
