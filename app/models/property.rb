@@ -12,4 +12,35 @@ class Property < ApplicationRecord
   def price_drop
     (self.price_history.first.second || 0) - (self.list_price || 0)
   end
+
+  def tiles(zoom)
+    SimpleMercatorLocation.new({lat: self.lat, lon: self.lon}).zoom_at(zoom).to_tile
+  end
+
+  def tiles_url
+    navtoken = 'eyJrZXkiOiJOQVZJT05JQ1NfV0VCQVBQX1AwMSIsImtleURvbWFpbiI6IndlYmFwcC5uYXZpb25pY3MuY29tIiwicmVmZXJlciI6IndlYmFwcC5uYXZpb25pY3MuY29tIiwicmFuZG9tIjoxNTgxODczODg3ODIzfQ'
+    tiles = tiles(16)
+    "https://backend.navionics.com/tile/16/#{tiles[0]}/#{tiles[1]}?LAYERS=config_2_60.00_0&TRANSPARENT=FALSE&UGC=TRUE&theme=0&navtoken=#{navtoken}"
+  end
+
+  def navionics
+    headers = {
+      'Connection': 'keep-alive',
+      'Pragma': 'no-cache',
+      'Cache-Control': 'no-cache',
+      'Origin': 'https://webapp.navionics.com',
+      'Sec-Fetch-Dest': 'image',
+      'User-Agent': ENV['USER_AGENT'],
+      'DNT': '1',
+      'Accept': 'image/webp,image/apng,image/*,*/*;q=0.8',
+      'Sec-Fetch-Site': 'same-site',
+      'Sec-Fetch-Mode': 'cors',
+      'Referer': 'https://webapp.navionics.com/',
+      'Accept-Language': 'en-US,en;q=0.9'
+    }
+
+    url = self.tiles_url
+
+    response = HTTParty.get(url, headers: headers, timeout: 180)
+  end
 end
