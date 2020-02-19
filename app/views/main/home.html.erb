@@ -14,7 +14,7 @@
   <h2><%= property.title %></h2>
   <img src="<%= property.photo_url %>" width="30%">
   <img src="<%= property.map_url %>" width="30%">
-  <%= ('<img src="data:image/png;base64,%s" width="23%%">' % Base64.encode64(property.navionics)).html_safe %><br>
+  # <%= ('<img src="data:image/png;base64,%s" width="23%%">' % Base64.encode64(property.navionics)).html_safe %><br>
   <%= number_to_currency(property.list_price) %> <a href="http://maps.google.com/maps?q=description+(name)+%40<%= property.lat %>,<%= property.lon %>">map</a> - <a href="<%= property.listing_url %>">listing</a><br>
   First seen: <%= property.price_history.first.first %><br>
   Last updated: <%= property.updated_at.to_date %><br>
