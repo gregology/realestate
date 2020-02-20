@@ -72,23 +72,24 @@ module ApplicationHelper
   end
 
   def get_remax_properties(north, east, south, west)
-    headers = {
+
+    headers =     {
       'authority': 'api.remax.ca',
       'pragma': 'no-cache',
       'cache-control': 'no-cache',
       'accept': 'application/json, text/plain, */*',
-      'origin': 'https://www.remax.ca',
+      'sec-fetch-dest': 'empty',
       'user-agent': ENV['USER_AGENT'],
       'dnt': '1',
+      'origin': 'https://www.remax.ca',
       'sec-fetch-site': 'same-site',
       'sec-fetch-mode': 'cors',
       'referer': 'https://www.remax.ca/find-real-estate',
-      'accept-encoding': 'gzip, deflate, br',
       'accept-language': 'en-US,en;q=0.9',
       'cookie': ENV['REMAX_COOKIE']
     }
 
-    url = "https://api.remax.ca/api/v1/listings/active?zoom=13&north=#{north}&east=#{east}&south=#{south}&west=#{west}&features.excludedListingTypeIds=101&features.excludedListingTypeIds=107&features.excludedListingTypeIds=108&features.excludedListingTypeIds=112&isPhysicalLocationSearch=true&includeSortFields=true"
+    url = "https://api.remax.ca/api/v1/listings/active?zoom=10&north=#{north}&east=#{east}&south=#{south}&west=#{west}&features.excludedListingTypeIds=101&features.excludedListingTypeIds=107&features.excludedListingTypeIds=108&features.excludedListingTypeIds=112&isPhysicalLocationSearch=true&includeSortFields=true"
 
     response = HTTParty.get(url, headers: headers, timeout: 180)
     results = JSON.parse response.body
@@ -97,16 +98,16 @@ module ApplicationHelper
 
   def get_detailed_remax_properties(property_ids)
     headers = {
-      'authority': 'www.remax.ca',
+      'authority': 'api.remax.ca',
       'pragma': 'no-cache',
       'cache-control': 'no-cache',
       'accept': 'application/json, text/plain, */*',
       'dnt': '1',
+      'sec-fetch-dest': 'empty',
       'user-agent': ENV['USER_AGENT'],
-      'sec-fetch-site': 'same-origin',
+      'sec-fetch-site': 'same-site',
       'sec-fetch-mode': 'cors',
       'referer': 'https://www.remax.ca/find-real-estate',
-      'accept-encoding': 'gzip, deflate, br',
       'accept-language': 'en-US,en;q=0.9',
       'cookie': ENV['REMAX_DETAILED_COOKIE']
     }
