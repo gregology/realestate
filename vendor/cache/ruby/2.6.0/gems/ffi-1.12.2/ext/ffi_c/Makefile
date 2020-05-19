@@ -12,12 +12,12 @@ NULLCMD = :
 #### Start of system configuration section. ####
 
 srcdir = .
-topdir = /opt/rubies/2.6.3/include/ruby-2.6.0
+topdir = /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/include/ruby-2.6.0
 hdrdir = $(topdir)
-arch_hdrdir = /opt/rubies/2.6.3/include/ruby-2.6.0/x86_64-darwin19
+arch_hdrdir = /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/include/ruby-2.6.0/universal-darwin19
 PATH_SEPARATOR = :
 VPATH = $(srcdir):$(arch_hdrdir)/ruby:$(hdrdir)/ruby
-prefix = $(DESTDIR)/opt/rubies/2.6.3
+prefix = $(DESTDIR)/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr
 rubysitearchprefix = $(rubylibprefix)/$(sitearch)
 rubyarchprefix = $(rubylibprefix)/$(arch)
 rubylibprefix = $(libdir)/$(RUBY_BASE_NAME)
@@ -31,9 +31,9 @@ rubyhdrdir = $(includedir)/$(RUBY_VERSION_NAME)
 vendorarchdir = $(vendorlibdir)/$(sitearch)
 vendorlibdir = $(vendordir)/$(ruby_version)
 vendordir = $(rubylibprefix)/vendor_ruby
-sitearchdir = $(DESTDIR)./.gem.20200216-78674-1s3a45x
-sitelibdir = $(DESTDIR)./.gem.20200216-78674-1s3a45x
-sitedir = $(rubylibprefix)/site_ruby
+sitearchdir = $(DESTDIR)./.gem.20200510-62901-r8f7mo
+sitelibdir = $(DESTDIR)./.gem.20200510-62901-r8f7mo
+sitedir = $(DESTDIR)/Library/Ruby/Site
 rubyarchdir = $(rubylibdir)/$(arch)
 rubylibdir = $(rubylibprefix)/$(ruby_version)
 sitearchincludedir = $(includedir)/$(sitearch)
@@ -41,20 +41,20 @@ archincludedir = $(includedir)/$(arch)
 sitearchlibdir = $(libdir)/$(sitearch)
 archlibdir = $(libdir)/$(arch)
 ridir = $(datarootdir)/$(RI_BASE_NAME)
-mandir = $(datarootdir)/man
+mandir = $(DESTDIR)/usr/share/man
 localedir = $(datarootdir)/locale
 libdir = $(exec_prefix)/lib
 psdir = $(docdir)
 pdfdir = $(docdir)
 dvidir = $(docdir)
 htmldir = $(docdir)
-infodir = $(datarootdir)/info
+infodir = $(DESTDIR)/usr/share/info
 docdir = $(datarootdir)/doc/$(PACKAGE)
-oldincludedir = $(SDKROOT)/usr/include
-includedir = $(prefix)/include
+oldincludedir = $(DESTDIR)/usr/include
+includedir = $(DESTDIR)/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk$(prefix)/include
 localstatedir = $(prefix)/var
 sharedstatedir = $(prefix)/com
-sysconfdir = $(prefix)/etc
+sysconfdir = $(DESTDIR)/Library/Ruby/Site
 datadir = $(datarootdir)
 datarootdir = $(prefix)/share
 libexecdir = $(exec_prefix)/libexec
@@ -64,11 +64,11 @@ archdir = $(rubyarchdir)
 
 
 CC_WRAPPER = 
-CC = clang
-CXX = clang++
-LIBRUBY = $(LIBRUBY_A)
+CC = xcrun clang
+CXX = xcrun clang++
+LIBRUBY = $(LIBRUBY_SO)
 LIBRUBY_A = lib$(RUBY_SO_NAME)-static.a
-LIBRUBYARG_SHARED = 
+LIBRUBYARG_SHARED = -l$(RUBY_SO_NAME)
 LIBRUBYARG_STATIC = -l$(RUBY_SO_NAME)-static -framework Security -framework Foundation $(MAINLIBS)
 empty =
 OUTFLAG = -o $(empty)
@@ -78,19 +78,19 @@ CSRCFLAG = $(empty)
 RUBY_EXTCONF_H = extconf.h
 cflags   = $(optflags) $(debugflags) $(warnflags)
 cxxflags = $(optflags) $(debugflags) $(warnflags)
-optflags = -O3
-debugflags = -ggdb3
+optflags = 
+debugflags = -g
 warnflags = 
 cppflags = 
-CCDLFLAGS = -fno-common
-CFLAGS   = $(CCDLFLAGS) $(cflags)  -pipe $(ARCH_FLAG)
-INCFLAGS = -I. -I$(arch_hdrdir) -I$(hdrdir)/ruby/backward -I$(hdrdir) -I$(srcdir)
+CCDLFLAGS = 
+CFLAGS   = $(CCDLFLAGS)  -g -Os -pipe -DHAVE_GCC_ATOMIC_BUILTINS  $(ARCH_FLAG)
+INCFLAGS = -I. -I$(arch_hdrdir) -I$(hdrdir)/ruby/backward -I$(hdrdir) -I$(srcdir) -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include/ffi
 DEFS     = 
-CPPFLAGS = -DRUBY_EXTCONF_H=\"$(RUBY_EXTCONF_H)\"  -I/usr/local/opt/openssl@1.1/include -I/usr/local/opt/readline/include -I/usr/local/opt/libyaml/include -I/usr/local/opt/gdbm/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT $(DEFS) $(cppflags)
-CXXFLAGS = $(CCDLFLAGS) $(cxxflags) $(ARCH_FLAG)
-ldflags  = -L. -fstack-protector-strong -L/usr/local/lib -L/usr/local/opt/openssl@1.1/lib -L/usr/local/opt/readline/lib -L/usr/local/opt/libyaml/lib -L/usr/local/opt/gdbm/lib
-dldflags = -Wl,-undefined,dynamic_lookup -Wl,-multiply_defined,suppress -L/usr/local/opt/openssl@1.1/lib -L/usr/local/opt/readline/lib -L/usr/local/opt/libyaml/lib -L/usr/local/opt/gdbm/lib 
-ARCH_FLAG = 
+CPPFLAGS = -DRUBY_EXTCONF_H=\"$(RUBY_EXTCONF_H)\" -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT $(DEFS) $(cppflags)
+CXXFLAGS = $(CCDLFLAGS)  -g -Os -pipe   $(ARCH_FLAG)
+ldflags  = -L. -L/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.Internal.sdk/usr/local/lib 
+dldflags = -arch x86_64             -undefined dynamic_lookup -multiply_defined suppress 
+ARCH_FLAG =  -arch x86_64
 DLDFLAGS = $(ldflags) $(dldflags) $(ARCH_FLAG)
 LDSHARED = $(CC) -dynamic -bundle
 LDSHAREDXX = $(CXX) -dynamic -bundle
@@ -104,7 +104,7 @@ RUBY_VERSION_NAME = $(RUBY_BASE_NAME)-$(ruby_version)
 RUBYW_BASE_NAME = rubyw
 RUBY_BASE_NAME = ruby
 
-arch = x86_64-darwin19
+arch = universal-darwin19
 sitearch = $(arch)
 ruby_version = 2.6.0
 ruby = $(bindir)/$(RUBY_BASE_NAME)
@@ -124,8 +124,8 @@ TOUCH = exit >
 #### End of system configuration section. ####
 
 preload = 
-libpath = . $(libdir) /usr/local/opt/openssl@1.1/lib /usr/local/opt/readline/lib /usr/local/opt/libyaml/lib /usr/local/opt/gdbm/lib
-LIBPATH =  -L. -L$(libdir) -L/usr/local/opt/openssl@1.1/lib -L/usr/local/opt/readline/lib -L/usr/local/opt/libyaml/lib -L/usr/local/opt/gdbm/lib
+libpath = . $(libdir)
+LIBPATH =  -L. -L$(libdir)
 DEFFILE = 
 
 CLEANFILES = mkmf.log
@@ -136,7 +136,7 @@ extout =
 extout_prefix = 
 target_prefix = 
 LOCAL_LIBS = 
-LIBS =    
+LIBS = $(LIBRUBYARG_SHARED) -lffi  -lffi  
 ORIG_SRCS = AbstractMemory.c ArrayType.c Buffer.c Call.c ClosurePool.c DynamicLibrary.c Function.c FunctionInfo.c LastError.c LongDouble.c MappedType.c MemoryPointer.c MethodHandle.c Platform.c Pointer.c Struct.c StructByValue.c StructLayout.c Thread.c Type.c Types.c Variadic.c ffi.c
 SRCS = $(ORIG_SRCS) 
 OBJS = AbstractMemory.o ArrayType.o Buffer.o Call.o ClosurePool.o DynamicLibrary.o Function.o FunctionInfo.o LastError.o LongDouble.o MappedType.o MemoryPointer.o MethodHandle.o Platform.o Pointer.o Struct.o StructByValue.o StructLayout.o Thread.o Type.o Types.o Variadic.o ffi.o
@@ -264,5 +264,3 @@ $(TARGET_SO): $(OBJS) Makefile
 
 
 $(OBJS): $(HDRS) $(ruby_headers)
-LIBFFI_HOST=--host=
-include ${srcdir}/libffi.darwin.mk
