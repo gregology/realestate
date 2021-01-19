@@ -1,5 +1,5 @@
 current directory: /Users/greg/src/github.com/gregology/realestate/vendor/cache/ruby/2.6.0/gems/pg-1.2.2/ext
-/opt/rubies/2.6.3/bin/ruby -I /opt/rubies/2.6.3/lib/ruby/2.6.0 -r ./siteconf20200216-78674-j6jd5i.rb extconf.rb
+/opt/rubies/2.6.3/bin/ruby -I /opt/rubies/2.6.3/lib/ruby/2.6.0 -r ./siteconf20210119-80093-1u7qda3.rb extconf.rb
 checking for pg_config... yes
 Using config values from /usr/local/bin/pg_config
 checking for libpq-fe.h... yes
@@ -150,4 +150,4 @@ linking shared-object pg_ext.bundle
 
 current directory: /Users/greg/src/github.com/gregology/realestate/vendor/cache/ruby/2.6.0/gems/pg-1.2.2/ext
 make "DESTDIR=" install
-/usr/bin/install -c -m 0755 pg_ext.bundle ./.gem.20200216-78674-1xboifo
+/usr/bin/install -c -m 0755 pg_ext.bundle ./.gem.20210119-80093-zdc74g

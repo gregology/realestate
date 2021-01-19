@@ -1,5 +1,5 @@
 current directory: /Users/greg/src/github.com/gregology/realestate/vendor/cache/ruby/2.6.0/gems/bootsnap-1.4.5/ext/bootsnap
-/opt/rubies/2.6.3/bin/ruby -I /opt/rubies/2.6.3/lib/ruby/2.6.0 -r ./siteconf20191016-84957-q1fopr.rb extconf.rb
+/opt/rubies/2.6.3/bin/ruby -I /opt/rubies/2.6.3/lib/ruby/2.6.0 -r ./siteconf20210119-80093-1a4no18.rb extconf.rb
 creating Makefile
 
 current directory: /Users/greg/src/github.com/gregology/realestate/vendor/cache/ruby/2.6.0/gems/bootsnap-1.4.5/ext/bootsnap
@@ -12,4 +12,4 @@ linking shared-object bootsnap/bootsnap.bundle
 
 current directory: /Users/greg/src/github.com/gregology/realestate/vendor/cache/ruby/2.6.0/gems/bootsnap-1.4.5/ext/bootsnap
 make "DESTDIR=" install
-/usr/bin/install -c -m 0755 bootsnap.bundle ./.gem.20191016-84957-1k3z0ma/bootsnap
+/usr/bin/install -c -m 0755 bootsnap.bundle ./.gem.20210119-80093-1eceu56/bootsnap

@@ -1,5 +1,5 @@
 current directory: /Users/greg/src/github.com/gregology/realestate/vendor/cache/ruby/2.6.0/gems/msgpack-1.3.3/ext/msgpack
-/opt/rubies/2.6.3/bin/ruby -I /opt/rubies/2.6.3/lib/ruby/2.6.0 -r ./siteconf20200216-78674-10p2iz0.rb extconf.rb
+/opt/rubies/2.6.3/bin/ruby -I /opt/rubies/2.6.3/lib/ruby/2.6.0 -r ./siteconf20210119-80093-onive0.rb extconf.rb
 checking for ruby/st.h... yes
 checking for st.h... yes
 checking for rb_str_replace() in ruby.h... yes
@@ -39,4 +39,4 @@ linking shared-object msgpack/msgpack.bundle
 
 current directory: /Users/greg/src/github.com/gregology/realestate/vendor/cache/ruby/2.6.0/gems/msgpack-1.3.3/ext/msgpack
 make "DESTDIR=" install
-/usr/bin/install -c -m 0755 msgpack.bundle ./.gem.20200216-78674-1ki98cq/msgpack
+/usr/bin/install -c -m 0755 msgpack.bundle ./.gem.20210119-80093-1q2t1vj/msgpack

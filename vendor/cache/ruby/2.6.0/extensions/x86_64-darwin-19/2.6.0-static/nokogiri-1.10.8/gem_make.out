@@ -1,5 +1,5 @@
 current directory: /Users/greg/src/github.com/gregology/realestate/vendor/cache/ruby/2.6.0/gems/nokogiri-1.10.8/ext/nokogiri
-/opt/rubies/2.6.3/bin/ruby -I /opt/rubies/2.6.3/lib/ruby/2.6.0 -r ./siteconf20200216-78674-1xv1jb9.rb extconf.rb
+/opt/rubies/2.6.3/bin/ruby -I /opt/rubies/2.6.3/lib/ruby/2.6.0 -r ./siteconf20210119-80093-1pcgs0y.rb extconf.rb
 checking if the C compiler accepts  -I /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/libxml2... yes
 checking if the C compiler accepts -Wno-error=unused-command-line-argument-hard-error-in-future... no
 Building nokogiri using packaged libraries.
@@ -152,4 +152,4 @@ rm -rf /Users/greg/src/github.com/gregology/realestate/vendor/cache/ruby/2.6.0/g
 
 current directory: /Users/greg/src/github.com/gregology/realestate/vendor/cache/ruby/2.6.0/gems/nokogiri-1.10.8/ext/nokogiri
 make "DESTDIR=" install
-/usr/bin/install -c -m 0755 nokogiri.bundle ./.gem.20200216-78674-1yytvt4/nokogiri
+/usr/bin/install -c -m 0755 nokogiri.bundle ./.gem.20210119-80093-jichft/nokogiri

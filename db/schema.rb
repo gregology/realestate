@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_02_020627) do
+ActiveRecord::Schema.define(version: 2021_01_19_020627) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,7 +108,7 @@ ActiveRecord::Schema.define(version: 2020_02_02_020627) do
               round(((rp.lot_size / (43560.0)::double precision))::numeric, 2) AS acres
              FROM ((zolo_properties zp
                JOIN remax_properties rp ON ((st_distance(zp.location, rp.location) < (25)::double precision)))
-               JOIN regions r ON ((st_intersects(zp.location, r.area) AND ((r.title)::text = 'prince_edward_county_coast'::text))))
+               JOIN regions r ON ((st_intersects(zp.location, r.area) AND ((r.title)::text = 'Southern PEC'::text))))
           ), purple_bricks_properties AS (
            SELECT pbp.id,
               pbp.address AS title,
@@ -122,8 +122,7 @@ ActiveRecord::Schema.define(version: 2020_02_02_020627) do
               '-1'::integer AS acres
              FROM ((public.purple_bricks_properties pbp
                LEFT JOIN zolo_properties zp ON ((st_distance(zp.location, pbp.location) < (100)::double precision)))
-               JOIN regions r ON ((st_intersects(pbp.location, r.area) AND ((r.title)::text = 'prince_edward_county_coast'::text))))
-            WHERE (((pbp.city)::text <> 'Cherry Valley'::text) AND ((pbp.land_type)::text <> ALL ((ARRAY['Multiplex property'::character varying, 'Condominium'::character varying])::text[])))
+               JOIN regions r ON ((st_intersects(pbp.location, r.area) AND ((r.title)::text = 'Southern PEC'::text))))
           ), prelist_properties AS (
            SELECT p.id,
               p.address AS title,
@@ -137,7 +136,7 @@ ActiveRecord::Schema.define(version: 2020_02_02_020627) do
               '-1'::integer AS acres
              FROM ((public.prelist_properties p
                LEFT JOIN zolo_properties zp ON ((st_distance(zp.location, p.location) < (100)::double precision)))
-               JOIN regions r ON ((st_intersects(p.location, r.area) AND ((r.title)::text = 'prince_edward_county_coast'::text))))
+               JOIN regions r ON ((st_intersects(p.location, r.area) AND ((r.title)::text = 'Southern PEC'::text))))
           ), properties AS (
            SELECT lms_properties.id,
               lms_properties.title,
@@ -192,6 +191,7 @@ ActiveRecord::Schema.define(version: 2020_02_02_020627) do
       (st_y(st_transform((properties.location)::geometry, 3857)) - (400)::double precision) AS bbox_3857_south,
       (st_x(st_transform((properties.location)::geometry, 3857)) - (400)::double precision) AS bbox_3857_west
      FROM properties
+    WHERE (properties.title IS NOT NULL)
     ORDER BY (properties.acres <> ('-1'::integer)::numeric) DESC NULLS LAST, properties.created_at DESC;
   SQL
 end

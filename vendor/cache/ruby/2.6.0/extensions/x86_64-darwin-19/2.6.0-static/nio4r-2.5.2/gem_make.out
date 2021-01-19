@@ -1,5 +1,5 @@
 current directory: /Users/greg/src/github.com/gregology/realestate/vendor/cache/ruby/2.6.0/gems/nio4r-2.5.2/ext/nio4r
-/opt/rubies/2.6.3/bin/ruby -I /opt/rubies/2.6.3/lib/ruby/2.6.0 -r ./siteconf20191016-84957-exmknd.rb extconf.rb
+/opt/rubies/2.6.3/bin/ruby -I /opt/rubies/2.6.3/lib/ruby/2.6.0 -r ./siteconf20210119-80093-1pryfz2.rb extconf.rb
 checking for unistd.h... yes
 checking for linux/aio_abi.h... no
 checking for sys/select.h... yes
@@ -92,4 +92,4 @@ linking shared-object nio4r_ext.bundle
 
 current directory: /Users/greg/src/github.com/gregology/realestate/vendor/cache/ruby/2.6.0/gems/nio4r-2.5.2/ext/nio4r
 make "DESTDIR=" install
-/usr/bin/install -c -m 0755 nio4r_ext.bundle ./.gem.20191016-84957-1h7rx87
+/usr/bin/install -c -m 0755 nio4r_ext.bundle ./.gem.20210119-80093-1fq9yfc

@@ -1,5 +1,5 @@
 current directory: /Users/greg/src/github.com/gregology/realestate/vendor/cache/ruby/2.6.0/gems/rgeo-2.1.1/ext/geos_c_impl
-/opt/rubies/2.6.3/bin/ruby -I /opt/rubies/2.6.3/lib/ruby/2.6.0 -r ./siteconf20191016-84957-uqp3u5.rb extconf.rb
+/opt/rubies/2.6.3/bin/ruby -I /opt/rubies/2.6.3/lib/ruby/2.6.0 -r ./siteconf20210119-80093-1pll94.rb extconf.rb
 checking for geos-config... no
 checking for geos_c.h... no
 **** WARNING: Unable to find GEOS headers or libraries.
