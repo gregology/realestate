@@ -15,7 +15,7 @@ gem 'httparty', '~> 0.17.0'
 gem 'scenic', '~> 1.5.0'
 gem 'simple_mercator_location', '~> 1.0.0'
 
-gem 'nokogiri', '~> 1.10.0'
+gem 'nokogiri', '~> 1.13.5'
 
 gem 'bootsnap', '>= 1.4.2', require: false
 
